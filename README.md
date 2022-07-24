@@ -1,0 +1,2 @@
+# vagrant-hashi
+vagrant-hashi
