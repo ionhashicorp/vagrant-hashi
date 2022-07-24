@@ -1,7 +1,7 @@
 # 1consul-2clients
-Create 1 consul server and 2 consul clients
+Create one consul server and two consul clients.
 
-Before creating resources:
+## Before creating resources
 - from main repo change directory into this example
 ```
 cd 01-1consul-2clients
