@@ -35,6 +35,11 @@ vagrant consul1
 vagrant ssh-config
 ```
 
+- destroy resources
+```
+vagrant destroy -f
+```
+
 ## Consul
 - verify consul setup
 ```
