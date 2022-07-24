@@ -10,6 +10,9 @@ cd 01-1consul-2clients
 ## Diagram
 ![](./diagram/diagram.png)
 
+GUI Consul:
+- http://192.168.56.11:8500
+
 ## How to use
 - create resources
 ```
