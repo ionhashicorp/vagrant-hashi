@@ -1,7 +1,7 @@
 # Gossip encryption
 - create one consul server and two consul clients
 - encrypt gossip encryption
-  - use encrypt="<KEY>"
+  - use encrypt="KEY"
   - key is 32bit based64 encoded
 
 ## Before creating resources
