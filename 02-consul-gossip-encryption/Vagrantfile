@@ -1,0 +1,32 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/jammy64"
+
+  # config.vm.provider "virtualbox"
+  config.vm.provider "virtualbox" do |vb|
+    vb.customize ["modifyvm", :id, "--memory", "384"]
+  end
+
+  # Consul
+  (1..1).each do |i|
+    config.vm.define "consul#{i}" do |consul|
+      consul.vm.hostname = "consul#{i}"
+      consul.vm.network "private_network", ip: "192.168.56.#{10+i}"
+      consul.vm.provision "shell", path: "scripts/install-hashicorp-repository.sh"
+      consul.vm.provision "shell", path: "scripts/install-consul.sh"
+      consul.vm.provision "shell", path: "scripts/install-bash-env-consul.sh"
+      consul.vm.provision "shell", path: "scripts/config-consul-server.sh"
+    end
+  end
+
+  # Client
+  (1..2).each do |i|
+    config.vm.define "client#{i}" do |client|
+      client.vm.hostname = "client#{i}"
+      client.vm.network "private_network", ip: "192.168.56.#{50+i}"
+      client.vm.provision "shell", path: "scripts/install-hashicorp-repository.sh"
+      client.vm.provision "shell", path: "scripts/install-consul.sh"
+      client.vm.provision "shell", path: "scripts/install-bash-env-consul.sh"
+      client.vm.provision "shell", path: "scripts/config-consul-client.sh"
+    end
+  end
+end
