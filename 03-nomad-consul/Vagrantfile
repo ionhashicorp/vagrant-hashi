@@ -1,0 +1,40 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/jammy64"
+
+  # config.vm.provider "virtualbox"
+  config.vm.provider "virtualbox" do |vb|
+    vb.customize ["modifyvm", :id, "--memory", "512"]
+  end
+
+  # nomad-consul
+  (1..1).each do |i|
+    config.vm.define "nomad-consul#{i}" do |nomadconsul|
+      nomadconsul.vm.hostname = "nomad-consul#{i}"
+      nomadconsul.vm.network "private_network", ip: "192.168.56.#{10+i}"
+      nomadconsul.vm.provision "shell", path: "scripts/install-hashicorp-repository.sh"
+      nomadconsul.vm.provision "shell", path: "scripts/install-consul.sh"
+      nomadconsul.vm.provision "shell", path: "scripts/install-nomad.sh"
+      nomadconsul.vm.provision "shell", path: "scripts/install-bash-env-consul.sh"
+      nomadconsul.vm.provision "shell", path: "scripts/install-bash-env-nomad.sh"
+      nomadconsul.vm.provision "shell", path: "scripts/config-consul-server.sh"
+      nomadconsul.vm.provision "shell", path: "scripts/config-nomad-server.sh"
+    end
+  end
+
+  # Client
+  (1..2).each do |i|
+    config.vm.define "client#{i}" do |client|
+      client.vm.hostname = "client#{i}"
+      client.vm.network "private_network", ip: "192.168.56.#{50+i}"
+      client.vm.provision "shell", path: "scripts/install-hashicorp-repository.sh"
+      client.vm.provision "shell", path: "scripts/install-consul.sh"
+      client.vm.provision "shell", path: "scripts/install-nomad.sh"
+      client.vm.provision "shell", path: "scripts/install-docker.sh"
+      client.vm.provision "shell", path: "scripts/install-cni.sh"
+      client.vm.provision "shell", path: "scripts/install-bash-env-consul.sh"
+      client.vm.provision "shell", path: "scripts/install-bash-env-nomad.sh"
+      client.vm.provision "shell", path: "scripts/config-consul-client.sh"
+      client.vm.provision "shell", path: "scripts/config-nomad-client.sh"
+    end
+  end
+end
