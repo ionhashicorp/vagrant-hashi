@@ -1,13 +1,18 @@
-# Gossip encryption
-- create one consul server and two consul clients
-- encrypt gossip encryption
-  - use encrypt="KEY"
-  - key is 32bit based64 encoded
+# nomad-consul
+- create 3 boxes:
+  - box: `nomad-consul`
+    - consul running in server mode
+    - nomad running in server mode
+  - box: client1 & cilent2
+    - consul client
+    - nomad client/worker
+    - CNI installed
+    - docker installed
 
 ## Before creating resources
 - from main repo change directory into this example
 ```
-cd 02-consul-gossip-encryption
+cd 03-nomad-consul
 ```
 
 ## Diagram
