@@ -1,0 +1,73 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/jammy64"
+
+  # config.vm.provider "virtualbox"
+  config.vm.provider "virtualbox" do |vb|
+    vb.customize ["modifyvm", :id, "--memory", "384"]
+  end
+
+  # consul-nomad-emea
+  (1..1).each do |i|
+    config.vm.define "consul-nomad-emea#{i}" do |consulnomademea|
+      consulnomademea.vm.hostname = "nomad-consul#{i}"
+      consulnomademea.vm.network "private_network", ip: "192.168.56.#{10+i}"
+      consulnomademea.vm.provision "shell", path: "scripts/install-hashicorp-repository.sh"
+      consulnomademea.vm.provision "shell", path: "scripts/install-consul.sh"
+      consulnomademea.vm.provision "shell", path: "scripts/install-nomad.sh"
+      consulnomademea.vm.provision "shell", path: "scripts/install-bash-env-consul.sh"
+      consulnomademea.vm.provision "shell", path: "scripts/install-bash-env-nomad.sh"
+      consulnomademea.vm.provision "shell", path: "scripts/config-consul-server-emea.sh"
+      consulnomademea.vm.provision "shell", path: "scripts/config-nomad-server-emea.sh"
+    end
+  end
+
+  # consul-nomad-usa
+  (1..1).each do |i|
+    config.vm.define "consul-nomad-usa#{i}" do |consulnomademea|
+      consulnomademea.vm.hostname = "nomad-consul#{i}"
+      consulnomademea.vm.network "private_network", ip: "192.168.56.#{100+i}"
+      consulnomademea.vm.provision "shell", path: "scripts/install-hashicorp-repository.sh"
+      consulnomademea.vm.provision "shell", path: "scripts/install-consul.sh"
+      consulnomademea.vm.provision "shell", path: "scripts/install-nomad.sh"
+      consulnomademea.vm.provision "shell", path: "scripts/install-bash-env-consul.sh"
+      consulnomademea.vm.provision "shell", path: "scripts/install-bash-env-nomad.sh"
+      consulnomademea.vm.provision "shell", path: "scripts/config-consul-server-usa.sh"
+      consulnomademea.vm.provision "shell", path: "scripts/config-nomad-server-usa.sh"
+    end
+  end
+
+  # client-emea
+  (1..1).each do |i|
+    config.vm.define "client-emea#{i}" do |clientemea|
+      clientemea.vm.hostname = "client-emea#{i}"
+      clientemea.vm.network "private_network", ip: "192.168.56.#{50+i}"
+      clientemea.vm.provision "shell", path: "scripts/install-hashicorp-repository.sh"
+      clientemea.vm.provision "shell", path: "scripts/install-consul.sh"
+      clientemea.vm.provision "shell", path: "scripts/install-nomad.sh"
+      clientemea.vm.provision "shell", path: "scripts/install-docker.sh"
+      clientemea.vm.provision "shell", path: "scripts/install-cni.sh"
+      clientemea.vm.provision "shell", path: "scripts/install-bash-env-consul.sh"
+      clientemea.vm.provision "shell", path: "scripts/install-bash-env-nomad.sh"
+      clientemea.vm.provision "shell", path: "scripts/config-consul-client-emea.sh"
+      clientemea.vm.provision "shell", path: "scripts/config-nomad-client-emea.sh"
+    end
+  end
+
+  # client-usa
+  (1..1).each do |i|
+    config.vm.define "client-usa#{i}" do |clientusa|
+      clientusa.vm.hostname = "client-emea#{i}"
+      clientusa.vm.network "private_network", ip: "192.168.56.#{150+i}"
+      clientusa.vm.provision "shell", path: "scripts/install-hashicorp-repository.sh"
+      clientusa.vm.provision "shell", path: "scripts/install-consul.sh"
+      clientusa.vm.provision "shell", path: "scripts/install-nomad.sh"
+      clientusa.vm.provision "shell", path: "scripts/install-docker.sh"
+      clientusa.vm.provision "shell", path: "scripts/install-cni.sh"
+      clientusa.vm.provision "shell", path: "scripts/install-bash-env-consul.sh"
+      clientusa.vm.provision "shell", path: "scripts/install-bash-env-nomad.sh"
+      clientusa.vm.provision "shell", path: "scripts/config-consul-client-usa.sh"
+      clientusa.vm.provision "shell", path: "scripts/config-nomad-client-usa.sh"
+    end
+  end
+  
+end
