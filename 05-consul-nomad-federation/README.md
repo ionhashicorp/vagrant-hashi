@@ -89,6 +89,7 @@ vagrant destroy -f
 ```
 consul info
 consul members
+consul members -wan
 consul operator raft list-peers
 ```
 
