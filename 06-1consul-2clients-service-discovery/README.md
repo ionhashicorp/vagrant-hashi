@@ -1,4 +1,4 @@
-# consul-nomad-federation
+# 06-1consul-2clients-service-discovery
 This vagrant setup will create
 - 2 services:
   - web (client1)
@@ -12,7 +12,7 @@ This vagrant setup will create
   - consul1 (server)
   - client1 (web service)
   - client2 (api service)
-  
+
 ## Before creating resources
 - from main repo change directory into this example
 ```
