@@ -8,7 +8,11 @@ This vagrant setup will create
   - api (client2)
     - requests served by fake-service
     - service registered in consul
-
+- 3 VMs:
+  - consul1 (server)
+  - client1 (web service)
+  - client2 (api service)
+  
 ## Before creating resources
 - from main repo change directory into this example
 ```
@@ -20,8 +24,7 @@ cd 06-1consul-2clients-service-discovery
 ![](./diagram/diagram.png)
 
 ## Connect
-- APP access
-  - http://192.168.56.51:9090
+- APP access: http://192.168.56.51:9090
 
 - Consul API
 ```
