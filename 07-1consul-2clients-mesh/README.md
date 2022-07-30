@@ -3,8 +3,8 @@ This vagrant setup will create
 - 2 services and 2 envoy-proxies:
 - 3 VMs:
   - consul1 (server)
-  - client1 (web service)
-  - client2 (api service)
+  - client1 (web service, envoy proxy)
+  - client2 (api service, envoy proxy)
 
 ## Before creating resources
 - from main repo change directory into this example
@@ -75,11 +75,9 @@ consul operator raft list-peers
     - listens on TCP-9090
     - makes further requests on localhost TCP-5000
   - envoy-sidecar-proxy-web (client1)
-    - listens on TCP-8000 and forwards request to envoy-sidecar-proxy-api
+    - listens on TCP-5000 and forwards request to envoy-sidecar-proxy-api
   - envoy-sidecar-proxy-api (client2)
-    - listens receives request from envoy-sidecar-proxy-web
-    - forwards requests on localhost to port TCP-8080
+    - receives request from envoy-sidecar-proxy-web
+    - forwards requests to localhost port TCP-8080
   - api (client2)
     - listens on TCP-8080
-    - envoy-proxy requests sent to api (fake-service binary)
-    - service registered in consul
