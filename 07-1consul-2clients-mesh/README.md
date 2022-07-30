@@ -2,9 +2,9 @@
 This vagrant setup will create
 - 2 services and 2 envoy-proxies:
 - 3 VMs:
-  - consul1 (server)
-  - client1 (web service, envoy proxy)
-  - client2 (api service, envoy proxy)
+  - consul1 (consul server)
+  - client1 (consul client, web service, envoy proxy)
+  - client2 (consul client, api service, envoy proxy)
 
 ## Before creating resources
 - from main repo change directory into this example
