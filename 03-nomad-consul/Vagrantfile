@@ -30,6 +30,7 @@ Vagrant.configure("2") do |config|
       client.vm.provision "shell", path: "scripts/install-consul.sh"
       client.vm.provision "shell", path: "scripts/install-nomad.sh"
       client.vm.provision "shell", path: "scripts/install-docker.sh"
+      client.vm.provision "shell", path: "scripts/install-podman.sh"
       client.vm.provision "shell", path: "scripts/install-cni.sh"
       client.vm.provision "shell", path: "scripts/install-bash-env-consul.sh"
       client.vm.provision "shell", path: "scripts/install-bash-env-nomad.sh"
