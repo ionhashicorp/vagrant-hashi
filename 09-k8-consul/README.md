@@ -1,4 +1,4 @@
-# 08-k8-1master-1node
+# 08-k8-1master-1node ---- NOT FINISHED
 This vagrant setup will create a kubernetes with consul on it:
 - 3 VMs:
   - master1
