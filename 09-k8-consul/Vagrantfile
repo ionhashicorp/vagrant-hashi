@@ -1,0 +1,33 @@
+# inspiration from: https://github.com/justmeandopensource/kubernetes/
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/jammy64"
+
+  # config.vm.provider "virtualbox"
+  config.vm.provider "virtualbox" do |vb|
+    vb.customize ["modifyvm", :id, "--memory", "2048"]
+    vb.customize ["modifyvm", :id, "--cpus", "2"] 
+  end
+
+  # all nodes
+  config.vm.provision "shell", path: "scripts/bootstrap.sh"
+
+  # master
+  config.vm.define "master1" do |master1|
+    master1.vm.hostname = "master1"
+    master1.vm.network "private_network", ip: "192.168.56.51"
+    master1.vm.provision "shell", path: "scripts/bootstrap_master.sh"
+    end
+
+  # Client
+  config.vm.define "client1" do |client1|
+    client1.vm.hostname = "client1"
+    client1.vm.network "private_network", ip: "192.168.56.101"
+    client1.vm.provision "shell", path: "scripts/bootstrap_client.sh"
+   end
+   config.vm.define "client2" do |client2|
+    client2.vm.hostname = "client2"
+    client2.vm.network "private_network", ip: "192.168.56.102"
+    client2.vm.provision "shell", path: "scripts/bootstrap_client.sh"
+   end
+end
