@@ -64,3 +64,7 @@ cat >>/etc/hosts<<EOF
 192.168.56.101      client1.example.com     client1
 192.168.56.102      client2.example.com     client2
 EOF
+
+echo "[TASK 11] Create directory for PV/Consul"
+mkdir -p /consul/data-consul-pv
+chmod 777 /consul/data-consul-pv

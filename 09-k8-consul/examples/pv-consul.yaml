@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+ namespace: consul
+ name: data-consul-pv0
+ labels:
+  type: local
+spec:
+ storageClassName: local-storage
+ capacity:
+  storage: 10Gi
+ accessModes:
+  - ReadWriteOnce
+ persistentVolumeReclaimPolicy: Recycle
+ claimRef:
+  namespace: consul
+  name: data-consul-consul-server-0
+ hostPath:
+  path: "/consul/data-consul-pv"
