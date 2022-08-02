@@ -6,21 +6,18 @@ This vagrant setup will create a kubernetes with consul on it:
    - pods created using kubeadm
   - client1 and client2
     - kubernetes workers
-- consul being deployed using helm
-
-## TODO
-[] install k8 storage driver that is needed by consul
+- consul being deployed using consul-k8
+- PersistentVolume is local, not perfect but works
 
 
-
-## Before creating resources
+## Before continuing
 - from main repo change directory into this example
 ```
 cd 08-k8-1master-1node
 ```
 
 ## Diagram
-![](./diagram/diagram.png)
+![](./diagram/consul.png)
 
 
 ## How to use
@@ -39,8 +36,42 @@ vagrant status
 vagrant ssh <VM-NAME>
 ```
 
-- destroy resources
+- destroy (after lab finished)
 ```
 vagrant destroy -f
 ```
 
+## Deploy consul
+- login on master1
+
+- change directory
+```
+cd /vagrant/examples
+```
+
+- create PersistentVolume (local-storage)
+```
+kubectl apply -f pv-consul.yaml
+```
+
+- consul-k8 deploy
+```
+consul-k8s install -config-file values.yaml
+```
+
+- list pods
+```
+kubectl -n consul get pods -o wide
+```
+
+- login server container
+```
+kubectl -n consul exec -it consul-server-0
+```
+
+- verify consul setup
+```
+consul info
+consul members
+consul operator raft list-peers
+```
