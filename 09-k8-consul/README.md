@@ -1,4 +1,4 @@
-# 08-k8-1master-1node ---- NOT FINISHED
+# 09-k8-consul
 This vagrant setup will create a kubernetes with consul on it:
 - 3 VMs:
   - master1
@@ -13,12 +13,11 @@ This vagrant setup will create a kubernetes with consul on it:
 ## Before continuing
 - from main repo change directory into this example
 ```
-cd 08-k8-1master-1node
+cd 09-k8-consul
 ```
 
 ## Diagram
 ![](./diagram/consul.png)
-
 
 ## How to use
 - create resources
@@ -43,6 +42,9 @@ vagrant destroy -f
 
 ## Deploy consul
 - login on master1
+```
+vagrant ssh master1
+```
 
 - change directory
 ```
