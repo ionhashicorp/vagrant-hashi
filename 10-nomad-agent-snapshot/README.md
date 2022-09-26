@@ -4,7 +4,7 @@ Nomad snapshot agents will communicate with consul to build a KV store entry to 
 Consul considers the nomad-agent-snapshot as an app, for this app consul keeps track which machine is the leader (taking the snapshot).
 Check [Consul Dynamic App Configuration](https://www.consul.io/docs/dynamic-app-config/sessions#session-design) and [app-leader-election-with-sessions](https://learn.hashicorp.com/tutorials/consul/application-leader-elections).
 
-** Diagrams included bellow **
+**Diagrams included bellow**
 
 ## How to use this repo
 - create resources
