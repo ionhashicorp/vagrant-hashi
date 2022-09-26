@@ -1,6 +1,6 @@
 # 10-nomad-agent-snapshot
-This repo will build 3 nomad servers that have also consul snapshot agents running on them, taking snapshots from leader.
-Nomad snapshot agents will communicate with consul to build a KV store entry to keep track of which machine contains the nomad leader.  
+This repo will build 3 nomad servers that have also consul snapshot agents running on them, taking snapshots from leader.  
+Nomad snapshot agents will communicate with consul to build a KV store entry to keep track of which machine contains the nomad leader.    
 Keeping track of who is the leader is important because Leader has the most accurate data when snapshot is taken.  
 Check [Consul Dynamic App Configuration](https://www.consul.io/docs/dynamic-app-config/sessions#session-design) and [app-leader-election-with-sessions](https://learn.hashicorp.com/tutorials/consul/application-leader-elections).
 
