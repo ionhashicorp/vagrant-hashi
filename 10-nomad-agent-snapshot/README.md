@@ -68,3 +68,6 @@ consul kv get -keys nomad-snapshot/lock
 ```console
 consul monitor --log-level=DEBUG
 ```
+
+- consul session on GUI
+![](screenshots/consul_session_gui.png)
