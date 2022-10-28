@@ -121,7 +121,7 @@ openssl x509 -noout -text -in certificates/server.pem
         ![](screenshots/app-flow-tgw-down.png)
 
 ## RUN run terminating gateway
-- start __`tgw-proxy.service`__ on client3
+- start __`tgw-proxy.service`__ on client3_tgw VM
 ```console
 vagrant ssh client3_tgw
 ```
