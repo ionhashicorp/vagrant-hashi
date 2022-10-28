@@ -1,0 +1,8 @@
+{
+  "Node": "external_database_virtual_consul_node",
+  "Address": "192.168.56.54",
+  "NodeMeta": {
+    "external-node": "true",
+    "external-probe": "true"
+  }
+}
