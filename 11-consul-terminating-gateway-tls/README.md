@@ -47,6 +47,7 @@ CONSUL_HTTP_ADDR=http://192.168.56.51:8511 \
 
 
 ## Register external service on non-existing (virtual) consul node
+- the __`database`__ (db VM) is the virtual consul node
 - why you cannot register a service or node from CLI via consul agent binary?
     - if you register a service via the CLI, it will be associated directly with the agent with which you are communicating
 
