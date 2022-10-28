@@ -10,8 +10,9 @@ What this LAB will do:
     - chrome browser accesses application called __`web`__ residing in the mesh
     - __`web`__ app is accessing the __`api`__ app through service mesh
     - __`api`__ app accesses the database __`db`__ outside mesh via a terminating gateway
-    - terminating gateway (__`csul-tgw`__) will bridge __`api`__ and __`database`__
+    - terminating gateway (__`client3-tgw`__) will bridge __`api`__ and __`database`__
         - will allow mesh to connect outside mesh (not the other way around)
+        - tgw connects to DB via TLS (secure)
     - communication between envoy sidecars are always on port __`:2000`__
 
 # Diagrams
