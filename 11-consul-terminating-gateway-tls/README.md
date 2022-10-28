@@ -31,9 +31,12 @@ cd 11-csul-nmd-term-gateway-tls
 vagrant up
 ```
 
-- Consul UI: [http://192.168.56.11:8511](http://192.168.56.11:8511)
+- consul UI: 
+    - [http://192.168.56.11:8511](http://192.168.56.11:8511)
 
-- Application access: [http://192.168.56.51:9090/](http://localhost:9090/) or [http://192.168.56.51:9090/ui](http://localhost:9090/ui)
+- application access: 
+    - [http://192.168.56.51:9090/](http://localhost:9090/)
+    - [http://192.168.56.51:9090/ui](http://localhost:9090/ui)
 
 - check consul members
 ```console
@@ -108,8 +111,15 @@ openssl x509 -noout -text -in certificates/client.pem
 openssl x509 -noout -text -in certificates/server.pem
 ```
 
+## Application up to this point
+- there is no connectivity between API and the database (TGW/envoy not started)
+- open browser on your laptop
+    - [http://localhost:9090/](http://localhost:9090/)
+        - displays json received
+        ![](screenshots/app-flow-tgw-down.png)
+
 ## RUN run terminating gateway
-- start tgw-proxy.service on client3
+- start __`tgw-proxy.service`__ on client3
 ```console
 vagrant ssh client3
 ```
@@ -118,9 +128,10 @@ vagrant ssh client3
 sudo systemctl start tgw-proxy.service
 ```
 
+## Application up and running
+
 ## Verify all went well
-- Consul UI: [http://192.168.56.11:8500](http://192.168.56.11:8500)
-- Application access: [http://localhost:9090/](http://localhost:9090/) or [http://localhost:9090/ui](http://localhost:9090/ui)
+- application access: [http://localhost:9090/](http://localhost:9090/) or [http://localhost:9090/ui](http://localhost:9090/ui)
 
 
 # Destroy LAB
