@@ -121,7 +121,7 @@ openssl x509 -noout -text -in certificates/server.pem
 ## RUN run terminating gateway
 - start __`tgw-proxy.service`__ on client3
 ```console
-vagrant ssh client3
+vagrant ssh client3_tgw
 ```
 
 ```console
@@ -129,10 +129,12 @@ sudo systemctl start tgw-proxy.service
 ```
 
 ## Application up and running
-
-## Verify all went well
-- application access: [http://localhost:9090/](http://localhost:9090/) or [http://localhost:9090/ui](http://localhost:9090/ui)
-
+- terminating-gateway is started (envoy via tgw-proxy service)
+- open browser on your laptop
+    - [http://192.168.56.51:9090/ui](http://192.168.56.51:9090/ui)
+    - [http://192.168.56.51:9090/](http://192.168.56.51:9090/)
+        - displays json received
+        ![](screenshots/app-flow-DB-connected.png)
 
 # Destroy LAB
 - bring down VMs
