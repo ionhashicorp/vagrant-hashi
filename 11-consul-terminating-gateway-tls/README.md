@@ -114,7 +114,7 @@ openssl x509 -noout -text -in certificates/server.pem
 ## Application up to this point
 - there is no connectivity between API and the database (TGW/envoy not started)
 - open browser on your laptop
-    - [http://localhost:9090/](http://localhost:9090/)
+    - [http://192.168.56.51:9090/](http://192.168.56.51:9090/)
         - displays json received
         ![](screenshots/app-flow-tgw-down.png)
 
