@@ -1,0 +1,63 @@
+Vagrant.configure("2") do |config|
+    config.vm.box = "ubuntu/jammy64"
+  
+    # config.vm.provider "virtualbox"
+    config.vm.provider "virtualbox" do |vb|
+      vb.customize ["modifyvm", :id, "--memory", "384"]
+    end
+  
+    # all nodes
+    config.vm.provision "shell", path: "scripts/install-hashicorp-repository.sh"
+    config.vm.provision "shell", path: "scripts/install-consul.sh"
+    config.vm.provision "shell", path: "scripts/install-bash-env-consul.sh"
+  
+    # consul server
+    (1..1).each do |i|
+      config.vm.define "consul#{i}" do |consul|
+        consul.vm.hostname = "consul#{i}"
+        consul.vm.network "private_network", ip: "192.168.56.#{10+i}"
+        consul.vm.provision "shell", path: "scripts/config-consul-server.sh"
+      end
+    end
+
+    # client web
+    config.vm.define "client1_web" do |client1_web|
+      client1_web.vm.hostname = "client1-web"
+      client1_web.vm.network "private_network", ip: "192.168.56.51"
+      client1_web.vm.provision "shell", path: "scripts/install-envoy.sh"
+      client1_web.vm.provision "shell", path: "scripts/config-consul-client.sh"
+      client1_web.vm.provision "shell", path: "scripts/config-consul-register-web-service.sh"
+      client1_web.vm.provision "shell", path: "scripts/install-fake-service.sh"
+      client1_web.vm.provision "shell", path: "scripts/config-consul-web-service.sh"
+      client1_web.vm.provision "shell", path: "scripts/config-consul-web-proxy.sh"
+     end
+
+    # client api
+    config.vm.define "client2_api" do |client2_api|
+        client2_api.vm.hostname = "client2-api"
+        client2_api.vm.network "private_network", ip: "192.168.56.52"
+        client2_api.vm.provision "shell", path: "scripts/install-envoy.sh"
+        client2_api.vm.provision "shell", path: "scripts/config-consul-client.sh"
+        client2_api.vm.provision "shell", path: "scripts/config-consul-register-api-service.sh"
+        client2_api.vm.provision "shell", path: "scripts/install-fake-service.sh"
+        client2_api.vm.provision "shell", path: "scripts/config-consul-api-service.sh"
+        client2_api.vm.provision "shell", path: "scripts/config-consul-api-proxy.sh"
+    end
+
+    # client tgw
+    config.vm.define "client3_tgw" do |client3_tgw|
+        client3_tgw.vm.hostname = "client3-tgw"
+        client3_tgw.vm.network "private_network", ip: "192.168.56.53"
+        client3_tgw.vm.provision "shell", path: "scripts/install-envoy.sh"
+        client3_tgw.vm.provision "shell", path: "scripts/config-consul-client.sh"
+        client3_tgw.vm.provision "shell", path: "scripts/config-consul-tgw-proxy.sh"
+    end
+
+    # client db (no consul)
+    config.vm.define "db" do |db|
+      db.vm.hostname = "db"
+      db.vm.network "private_network", ip: "192.168.56.54"
+      db.vm.provision "shell", path: "scripts/install-fake-service.sh"
+      db.vm.provision "shell", path: "scripts/config-db-service.sh"
+  end
+end
